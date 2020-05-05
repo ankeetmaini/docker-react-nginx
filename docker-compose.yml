@@ -16,6 +16,7 @@ services:
   nginx:
     build: 
       context: ./nginx
+      target: base
     ports:
       - 8080:80
     volumes:
