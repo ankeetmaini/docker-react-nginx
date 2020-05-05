@@ -1,0 +1,14 @@
+version: '2.4'
+
+services:
+  app:
+    build:
+      context: .
+      target: dev
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/docker-react-nginx
+      - ~/Library/Caches/Yarn/ekart-cl-ui-apps:/usr/local/share/.cache/yarn/v6
+    environment:
+      - NODE_ENV=development
