@@ -9,6 +9,6 @@ services:
       - 3000:3000
     volumes:
       - .:/docker-react-nginx
-      - ~/Library/Caches/Yarn/ekart-cl-ui-apps:/usr/local/share/.cache/yarn/v6
+      - ~/Library/Caches/Yarn/docker-react-nginx:/usr/local/share/.cache/yarn/v6
     environment:
       - NODE_ENV=development
