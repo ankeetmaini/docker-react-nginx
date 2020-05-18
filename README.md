@@ -27,9 +27,9 @@ yarn
 - app
 
 ```bash
-docker build . -t docker-react 
+docker build . -t docker-react
 # run it
-docker run --publish 8000:3000 -it docker-react:latest
+docker container run -it --rm --name react docker-react:latest
 ```
 
 - nginx
@@ -38,5 +38,5 @@ docker run --publish 8000:3000 -it docker-react:latest
 cd nginx
 docker build . -t docker-nginx
 # run it
-docker run --publish 8000:80 -it docker-nginx:latest
+docker container run --publish 80:80 -it --rm docker-nginx:latest
 ```
