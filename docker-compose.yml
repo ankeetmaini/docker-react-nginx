@@ -1,4 +1,4 @@
-version: '2.4'
+version: "2.4"
 
 services:
   app:
@@ -14,9 +14,11 @@ services:
       - NODE_ENV=development
 
   nginx:
-    build: 
+    build:
       context: ./nginx
       target: base
+    depends_on:
+      - app
     ports:
       - 8080:80
     volumes:
