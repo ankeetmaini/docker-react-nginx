@@ -1,15 +1,5 @@
 FROM node:12-stretch-slim as base
 
-FROM base as dev
-
-WORKDIR /docker-react-nginx
-
-# add node deps to path so that you don't have
-# to do ./node_modules/.bin/something
-ENV PATH=./node_modules/.bin:$PATH
-
-CMD ["yarn", "start"]
-
 FROM base as test
 
 # least privilege user
@@ -34,14 +24,12 @@ ENV NODE_ENV production
 RUN yarn build
 RUN yarn build:server
 
-FROM base as prod
+FROM gcr.io/distroless/nodejs as prod
 # least privilege user
-RUN mkdir -p /docker-react-nginx && chown -R node:node /docker-react-nginx
-USER node
-
+USER nonroot
 WORKDIR /docker-react-nginx
 
 # only copy needed assets, node_modules
 # etc will be left in test image, super light prod image
-COPY --chown=node:node --from=test /docker-react-nginx/build .
-CMD ["node", "server.js"]
+COPY --from=test --chown=nonroot:nonroot /docker-react-nginx/build .
+CMD ["server.js"]
